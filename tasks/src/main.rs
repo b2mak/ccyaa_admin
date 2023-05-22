@@ -14,7 +14,7 @@ async fn main() {
       .expect("Request for orders failed");
 
     println!("Successful call to Orders to {:#?}", orders);
-    let mut conn = common::establish_connection();
+    let mut conn = common::database::establish_connection();
     insert_new_orders_into_db(&orders.result, &mut conn);
 
     next_page_eh = orders.pagination.has_next_page;
@@ -25,7 +25,7 @@ async fn main() {
 }
 
 fn insert_new_orders_into_db(
-  new_orders: &Vec<common::db_structs::NewOrder>,
+  new_orders: &Vec<common::database::structs::NewOrder>,
   conn: &mut diesel::PgConnection,
 ) -> () {
   diesel::insert_into(common::schema::orders::table)

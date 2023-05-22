@@ -1,4 +1,4 @@
-use super::schema::orders;
+use crate::schema::orders;
 use diesel::prelude::*;
 
 mod address;
@@ -54,13 +54,7 @@ pub struct NewOrder {
   pub price_tax_interpretation: Option<String>,
 }
 
-#[derive(
-  serde::Serialize,
-  serde::Deserialize,
-  Queryable,
-  Debug,
-  Clone,
-)]
+#[derive(serde::Serialize, serde::Deserialize, Queryable, Debug, Clone)]
 pub struct Order {
   pub id: i32,
   pub squarespace_id: String,

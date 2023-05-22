@@ -1,17 +1,15 @@
-use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
-
-#[get("/")]
-async fn hello() -> impl Responder {
-  let mut conn = common::establish_connection();
-  let orders = common::get_orders(&mut conn);
+#[actix_web::get("/")]
+async fn hello() -> impl actix_web::Responder {
+  let mut conn = common::database::establish_connection();
+  let orders = common::database::get_orders(&mut conn);
   let orders_json =
     serde_json::to_string(&orders).expect("couldn't serialize orders");
-  HttpResponse::Ok().body(orders_json)
+  actix_web::HttpResponse::Ok().body(orders_json)
 }
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-  HttpServer::new(|| App::new().service(hello))
+  actix_web::HttpServer::new(|| actix_web::App::new().service(hello))
     .bind(("0.0.0.0", 8080))?
     .run()
     .await
