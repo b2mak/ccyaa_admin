@@ -1,6 +1,3 @@
-use super::schema::orders;
-use diesel::prelude::*;
-
 mod address;
 mod discount_line;
 mod form_submission;
@@ -10,19 +7,19 @@ mod line_item;
 mod monetary_value;
 mod shipping_line;
 
-pub type Address = address::Address;
-pub type MonetaryValue = monetary_value::MonetaryValue;
-pub type InternalNote = internal_note::InternalNote;
-pub type ShippingLine = shipping_line::ShippingLine;
-pub type DiscountLine = discount_line::DiscountLine;
-pub type FormSubmission = form_submission::FormSubmission;
-pub type Fulfillment = fulfillment::Fulfillment;
-pub type VariantOption = line_item::VariantOption;
-pub type Customization = line_item::Customization;
-pub type LineItem = line_item::LineItem;
+pub use address::Address;
+pub use discount_line::DiscountLine;
+pub use form_submission::FormSubmission;
+pub use fulfillment::Fulfillment;
+pub use internal_note::InternalNote;
+pub use line_item::{Customization, LineItem, VariantOption};
+pub use monetary_value::MonetaryValue;
+pub use shipping_line::ShippingLine;
 
-#[derive(Insertable, serde::Serialize, serde::Deserialize, Debug)]
-#[diesel(table_name = orders)]
+#[derive(
+  diesel::prelude::Insertable, serde::Serialize, serde::Deserialize, Debug,
+)]
+#[diesel(table_name = crate::schema::orders)]
 #[serde(rename_all = "camelCase")]
 pub struct NewOrder {
   #[diesel(column_name = squarespace_id)]
@@ -55,11 +52,7 @@ pub struct NewOrder {
 }
 
 #[derive(
-  serde::Serialize,
-  serde::Deserialize,
-  Queryable,
-  Debug,
-  Clone,
+  serde::Serialize, serde::Deserialize, diesel::prelude::Queryable, Debug, Clone,
 )]
 pub struct Order {
   pub id: i32,

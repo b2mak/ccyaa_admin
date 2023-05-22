@@ -1,4 +1,4 @@
-use common::structs;
+mod structs;
 
 pub async fn orders_call(
   bearer_token: &str,
