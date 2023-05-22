@@ -1,6 +1,3 @@
-use crate::schema::orders::fulfillment_status;
-use diesel::*;
-
 pub mod structs;
 
 pub fn establish_connection() -> diesel::PgConnection {
@@ -17,8 +14,9 @@ pub fn get_database_url() -> String {
 }
 
 pub fn get_orders(conn: &mut diesel::PgConnection) -> Vec<structs::Order> {
-  return crate::schema::orders::dsl::orders
-    .filter(fulfillment_status.eq("CANCELED"))
+  use diesel::*;
+  return crate::schema::orders::table
+    .filter(crate::schema::orders::fulfillment_status.eq("CANCELED"))
     .limit(5)
     .load::<structs::Order>(conn)
     .expect("Error loading orders");
