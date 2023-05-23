@@ -22,7 +22,7 @@ pub fn get_orders(
   return crate::schema::orders::table
     .order_by(crate::schema::orders::id.asc())
     .limit(page_size)
-    .offset(page_size*page)
+    .offset(page_size * page)
     .load::<structs::Order>(conn)
     .expect("Error loading orders");
 }

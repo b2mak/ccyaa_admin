@@ -10,7 +10,11 @@ async fn orders(
   info: actix_web::web::Query<OrdersQuery>,
 ) -> impl actix_web::Responder {
   let mut conn = common::database::establish_connection();
-  let page = if info.page.is_some() { info.page.unwrap() } else { 0 };
+  let page = if info.page.is_some() {
+    info.page.unwrap()
+  } else {
+    0
+  };
   let orders = common::database::get_orders(
     &mut conn,
     PAGE_SIZE,
