@@ -13,11 +13,16 @@ pub fn get_database_url() -> String {
   return std::env::var("DATABASE_URL").expect("DATABASE_URL must be set");
 }
 
-pub fn get_orders(conn: &mut diesel::PgConnection) -> Vec<structs::Order> {
+pub fn get_orders(
+  conn: &mut diesel::PgConnection,
+  page_size: i64,
+  page: i64,
+) -> Vec<structs::Order> {
   use diesel::*;
   return crate::schema::orders::table
-    .filter(crate::schema::orders::fulfillment_status.eq("CANCELED"))
-    .limit(5)
+    .order_by(crate::schema::orders::id.asc())
+    .limit(page_size)
+    .offset(page_size * page)
     .load::<structs::Order>(conn)
     .expect("Error loading orders");
 }
