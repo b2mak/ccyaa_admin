@@ -2,8 +2,7 @@
 
 diesel::table! {
     orders (id) {
-        id -> Int4,
-        squarespace_id -> Varchar,
+        id -> Varchar,
         order_number -> Varchar,
         created_on -> Varchar,
         modified_on -> Varchar,

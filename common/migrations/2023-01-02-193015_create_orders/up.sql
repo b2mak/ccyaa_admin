@@ -1,6 +1,6 @@
 CREATE TABLE orders (
-  id SERIAL PRIMARY KEY,
-  squarespace_id VARCHAR UNIQUE NOT NULL,
+  -- Using squarespace's id as the primary key
+  id VARCHAR PRIMARY KEY,
   order_number VARCHAR NOT NULL,
   created_on VARCHAR NOT NULL,
   modified_on VARCHAR NOT NULL,

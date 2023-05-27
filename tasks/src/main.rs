@@ -25,7 +25,7 @@ async fn main() {
 }
 
 fn insert_new_orders_into_db(
-  new_orders: &Vec<common::database::structs::NewOrder>,
+  new_orders: &Vec<common::database::structs::Order>,
   conn: &mut diesel::PgConnection,
 ) -> () {
   diesel::insert_into(common::schema::orders::table)
