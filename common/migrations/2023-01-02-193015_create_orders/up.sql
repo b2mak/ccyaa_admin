@@ -13,8 +13,6 @@ CREATE TABLE orders (
   -- JSON encoded string
   shipping_address JSONB,
   fulfillment_status VARCHAR NOT NULL,
-  -- JSON encoded string (not null, but can be an empty array)
-  line_items JSONB[] NOT NULL,
   -- Array of JSONB structs
   internal_notes JSONB[] NOT NULL,
   -- Array of JSONB structs
