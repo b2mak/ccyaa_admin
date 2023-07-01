@@ -16,4 +16,6 @@ CREATE TABLE line_items (
   customizations JSONB[],
   image_url VARCHAR NOT NULL,
   line_item_type VARCHAR NOT NULL
-)
+);
+
+CREATE INDEX sku_index ON line_items (sku);
