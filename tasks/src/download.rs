@@ -3,7 +3,7 @@ mod structs;
 pub async fn orders_call(
   bearer_token: &str,
   cursor: &Option<String>,
-) -> Result<structs::Orders, Box<dyn std::error::Error>> {
+) -> Result<common::download::Orders, Box<dyn std::error::Error>> {
   let mut url: String =
     "https://api.squarespace.com/1.0/commerce/orders".to_owned();
   match cursor {
@@ -27,7 +27,7 @@ pub async fn orders_call(
       let text = response.text().await?;
       // Some Deserializer.
       let jd = &mut serde_json::Deserializer::from_str(&text);
-      let result: Result<structs::Orders, _> =
+      let result: Result<common::download::Orders, _> =
         serde_path_to_error::deserialize(jd);
 
       if result.is_err() {

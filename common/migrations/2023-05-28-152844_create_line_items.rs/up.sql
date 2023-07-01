@@ -1,7 +1,7 @@
 CREATE TABLE line_items (
   -- Using squarespace's id as the primary key
   id VARCHAR PRIMARY KEY,
-  order_id VARCHAR REFERENCES orders(id),
+  order_id VARCHAR REFERENCES orders(id) NOT NULL,
   variant_id VARCHAR,
   sku VARCHAR NOT NULL,
   weight REAL NOT NULL,

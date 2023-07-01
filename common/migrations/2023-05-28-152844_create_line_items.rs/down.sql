@@ -1,1 +1,1 @@
-DROP TABLE line_item
+DROP TABLE line_items

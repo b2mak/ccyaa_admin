@@ -1,4 +1,5 @@
 pub mod database;
+pub mod download;
 pub mod schema;
 
 #[cfg(test)]

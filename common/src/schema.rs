@@ -3,7 +3,7 @@
 diesel::table! {
     line_items (id) {
         id -> Varchar,
-        order_id -> Nullable<Varchar>,
+        order_id -> Varchar,
         variant_id -> Nullable<Varchar>,
         sku -> Varchar,
         weight -> Float4,

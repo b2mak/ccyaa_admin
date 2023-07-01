@@ -35,3 +35,13 @@ pub struct Order {
   pub fulfilled_on: Option<String>,
   pub price_tax_interpretation: Option<String>,
 }
+
+impl From<&crate::download::Order> for Order {
+  fn from(a: &crate::download::Order) -> Self {
+    let mut serialized = serde_json::to_value(a).unwrap();
+    let obj = serialized.as_object_mut().expect("Value was not an object");
+    obj.remove("line_items");
+    return serde_json::from_value(serde_json::to_value(&obj).unwrap()).unwrap()
+  }
+}
+

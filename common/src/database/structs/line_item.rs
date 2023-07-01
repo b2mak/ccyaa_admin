@@ -91,13 +91,14 @@ impl diesel::serialize::ToSql<diesel::sql_types::Jsonb, diesel::pg::Pg>
   serde::Serialize,
   serde::Deserialize,
   Debug,
+  Clone,
 )]
 #[diesel(table_name = crate::schema::line_items)]
 #[diesel(belongs_to(Order))]
 #[serde(rename_all = "camelCase")]
 pub struct LineItem {
   pub id: String,
-  pub order_id: Option<String>,
+  pub order_id: String,
   pub variant_id: Option<String>,
   pub sku: String,
   pub weight: f32,
@@ -114,3 +115,16 @@ pub struct LineItem {
   // TODO: I think this can also be an enum
   pub line_item_type: String,
 }
+
+impl LineItem {
+  pub fn from(a: &crate::download::LineItem, order_id: &String) -> Self {
+    let mut serialized = serde_json::to_value(a).unwrap();
+    let obj = serialized.as_object_mut().expect("Value was not an object");
+    obj.insert(
+      String::from("orderId"),
+      serde_json::to_value(order_id).unwrap(),
+    );
+    return serde_json::from_value(serde_json::to_value(&obj).unwrap()).unwrap()
+  }
+}
+
