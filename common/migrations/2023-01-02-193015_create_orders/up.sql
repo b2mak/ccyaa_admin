@@ -1,6 +1,6 @@
 CREATE TABLE orders (
-  id SERIAL PRIMARY KEY,
-  squarespace_id VARCHAR UNIQUE NOT NULL,
+  -- Using squarespace's id as the primary key
+  id VARCHAR PRIMARY KEY,
   order_number VARCHAR NOT NULL,
   created_on VARCHAR NOT NULL,
   modified_on VARCHAR NOT NULL,
@@ -13,8 +13,6 @@ CREATE TABLE orders (
   -- JSON encoded string
   shipping_address JSONB,
   fulfillment_status VARCHAR NOT NULL,
-  -- JSON encoded string (not null, but can be an empty array)
-  line_items JSONB[] NOT NULL,
   -- Array of JSONB structs
   internal_notes JSONB[] NOT NULL,
   -- Array of JSONB structs

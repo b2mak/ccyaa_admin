@@ -1,10 +1,3 @@
-#[derive(serde::Serialize, serde::Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct Orders {
-  pub result: Vec<common::database::structs::Order>,
-  pub pagination: Pagination,
-}
-
 #[derive(serde::Serialize, serde::Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Pagination {
