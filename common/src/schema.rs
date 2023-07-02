@@ -14,8 +14,8 @@ diesel::table! {
         product_name -> Nullable<Varchar>,
         quantity -> Int4,
         unit_price_paid -> Jsonb,
-        variant_options -> Array<Nullable<Jsonb>>,
-        customizations -> Nullable<Array<Nullable<Jsonb>>>,
+        variant_options -> Array<Jsonb>,
+        customizations -> Nullable<Array<Jsonb>>,
         image_url -> Varchar,
         line_item_type -> Varchar,
     }

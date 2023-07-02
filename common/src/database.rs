@@ -26,3 +26,19 @@ pub fn get_orders(
     .load::<structs::Order>(conn)
     .expect("Error loading orders");
 }
+
+pub fn get_line_items(
+  conn: &mut diesel::PgConnection,
+  skus: &Vec<String>,
+) -> Vec<structs::LineItem> {
+  use diesel::*;
+  if !skus.is_empty() {
+    return crate::schema::line_items::table
+      .filter(crate::schema::line_items::sku.eq_any(skus))
+      .load::<structs::LineItem>(conn)
+      .expect("Error loading orders");
+  }
+  return crate::schema::line_items::table
+    .load::<structs::LineItem>(conn)
+    .expect("Error loading orders");
+}
